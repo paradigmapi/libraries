@@ -47,6 +47,7 @@ class ParadigmAPI(object):
         # loop through requests until the all data is gathered or a rate limit is encountered
 
         while True:
+            print(start)
             args['datetimeUTC'] = start + ':' + end
             args['sort'] = 'datetimeUTC'
             args['order'] = 'asc'
@@ -61,7 +62,7 @@ class ParadigmAPI(object):
 
                 start = self._fmt_date_str(data['result'][-1]['datetimeUTC'], 1)
                 out += data['result']
-            elif res.status_code == 429:
+            else:
                 raise Exception('Your API key has reached a rate limit. Please reduce the range or increase your limits.')
 
         if df: 
